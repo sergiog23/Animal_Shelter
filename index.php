@@ -1,5 +1,5 @@
 <?php
-//include('login.html');
+//include('php.ini');
 $servername = "localhost";
 $username = "root";
 $password = "root";
