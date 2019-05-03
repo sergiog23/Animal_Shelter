@@ -22,8 +22,9 @@ mysqli_close($conn);
 <body background= "dog.jpg">
 
 <form action="login.php" method="post">
-		Enter your username <input name="user" type="text"> </input><br>
-		Enter your password<input type="password" name="pass"></input><br>
+		Enter your username :<input name="user" type="text"> </input><br>
+		<hr>
+		Enter your password :<input type="password" name="pass"></input><br>
 		<input type="submit" name="enter"> </input><br>
 </form>
 <hr>

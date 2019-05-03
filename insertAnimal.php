@@ -14,61 +14,42 @@ if (!$conn) {
 
 $Name= mysqli_real_escape_string($conn,$_POST['Name']);
 $Description= mysqli_real_escape_string($conn,$_POST['Description']);
-$Age=$_POST['Age'];
+$Age=mysqli_real_escape_string($conn,$_POST['Age']);
 $Type= mysqli_real_escape_string($conn,$_POST['Type']);
 $Breed= mysqli_real_escape_string($conn,$_POST['Breed']);
 $Size= mysqli_real_escape_string($conn,$_POST['Size']);
 $Color= mysqli_real_escape_string($conn,$_POST['Color']);
 $Animal_ID=NULL;
-$Posted_Date="2019-05-03";
-$Availability='1';
+$Posted_Date="20190503";
+$Availability="1";
 
 //$SELECT = "SELECT email from profile where email = ? Limit 1";
 $INSERT = "INSERT Into animal( Animal_ID, Description, Age, Name, Type,
 Breed, Size, Color,Availability, Posted_date) values (?,?,?,?,?,?,?,?,?,?)";
-/*
-/*$stmt=mysqli_prepare($conn,$SELECT);
-mysqli_stmt_bind_param($stmt,"s",$Email);
-mysqli_stmt_execute($stmt);
-mysqli_stmt_bind_result($stmt,$Email);
-mysqli_stmt_store_result($stmt);
-$rnum=mysqli_stmt_num_rows($stmt);
 
-if($rnum==0)
-{
-	mysqli_stmt_close($stmt);
+
+
 	
-	$stmt=mysqli_prepare($conn,$INSERT);
-	if ( !$stmt ) {
-  die('mysqli error: '.mysqli_error($conn);
-	*/
-	if($stmt=mysqli_prepare($conn,$INSERT)){
+	if(!$stmt=mysqli_prepare($conn,$INSERT)){
+		echo "records inserted successfully.";
+		die('mysqli_error:'.mysqli_error($conn));
+		}
+	//$stmt=mysqli_prepare($conn,$INSERT);
+
 	
 	mysqli_stmt_bind_param($stmt,"isisssssis",$Animal_ID,$Description,$Age,$Name,$Type,$Breed,
-	$Size,$Color,$Availability,$Posted_date);
-	if(mysqli_stmt_execute($stmt)){
-		echo "records inserted successfully."
-		header("Location:index.php");
-	} else {
-		"ERROR: Could not execute query $INSERT.".mysqli_error($conn);
-	}}
-	else {
-		echo "Error: could not prepare query $INSERT.".mysqli_error($conn);
+	$Size,$Color,$Availability,$Posted_Date);
+	if(!mysqli_stmt_execute($stmt)){
+		die('mysqli_error:'.mysqli_stmt_error($stmt));
 	}
+	header("Location: Homepage.php");
 	/*
-	if(!mysqli_stmt_execute($stmt))
-	{
-		die('mysqli error: '.mysqli_stmt_error($stmt));
-	}	
-	
-	
-	header("Location:index.php");
-	
-}
-else {
-	echo "someone already regiestered";
-}*/
-
+	if(!mysqli_stmt_execute($stmt)){
+		echo "records inserted successfully."
+		die('mysqli_error:'.mysqli_stmt_error($stmt));
+		//header("Location:homepage.php");
+	}*/
 mysqli_stmt_close($stmt);
+
 mysqli_close($conn);
 ?>

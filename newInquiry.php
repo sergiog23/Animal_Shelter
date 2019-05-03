@@ -3,51 +3,46 @@
 $servername = "localhost";
 $username = "root";
 $password = "root";
+
 // Create connection
 $conn = new mysqli($servername, $username, $password);
+
 // Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 	}
 	
 mysqli_select_db($conn,'animal_shelter');
-$sql = 'SELECT * from profile';
-$result=mysqli_query($conn,$sql);
-if(!$result){
-	die('Could not get data: '.mysqli_error());
-} 
 ?>
+
 <html>
 <head>
-<title>HOMEPAGE</title>
-</head>
-<h1>Welcome to Animal Shelter</h1>
-<hr>
-<h3>Add a new animal:</h3>
-<form action="newAnimal.php" method="post">
-<input type="submit" name="addA">
-</form>
-<h3>Make a donation:</h3>
-<form action="newDonation.php" method="post">
-<input type="submit" name="addD">
-</form>
-<h3>Adopt animal:</h3>
-<form action="newAdoption.php" method="post">
-<input type="submit" name="adoption">
-</form>
-<h3>Inquire about animal:</h3>
-<form action="newInquiry.php" method="post">
-<input type="submit" name="addInquiry">
-</form>
-<h3>View Database:</h3>
-<form action="database.php" method="post">
-<input type="submit" name="adddy">
-</form>
 
-<h1> Animals</h1>
-<table>
-<table border ='1'>
+<title>Inquire abount Animal </title>
+
+<h1>Enter Animal ID and Question for which animal you want to inquire  about! </h1>
+</head>
+
+<form action="insertInquiry.php" method ="POST">
+	<table>
+	<tr>
+	<td>Animal_ID: </td>
+	<td><input name="Animal_ID" type="number"></td>
+	<tr></tr>
+	<td>Question: </td>
+	<td><input name="Question" type="text"</td>
+	<tr></tr>
+	<td><input type="submit" value="Submit"</td>
+	</tr>
+	
+	</table>
+
+
+</form>
 <hr>
+<table>
+<table border = '1'>
+<h3>Animals</h3>
 <tr>
 <th>Animal_ID</th>
 <th>Description</th>
@@ -58,9 +53,8 @@ if(!$result){
 <th>Color</th>
 <th>Availability</th>
 </tr>
-
 <?php
-$sql = 'SELECT * from animal';
+$sql = 'SELECT * from animal where Availability = 1';
 $result=mysqli_query($conn,$sql);
 if(!$result){
 	die('Could not get data: '.mysqli_error());
@@ -81,10 +75,7 @@ while($row=mysqli_fetch_assoc($result)){
  mysqli_free_result($result);
 //echo "Fetched data successfully\n";
 //mysqli_close($conn);
+
 ?>
 
-</table>
-
-
 </html>
-
